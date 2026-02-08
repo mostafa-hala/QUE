@@ -171,9 +171,9 @@ const Navbar: React.FC<NavbarProps> = ({
               {item.name}
             </button>
           ))}
-          <button className="w-full bg-[#D4A048] text-[#0C1A3B] py-3 rounded-full font-bold">
+          {/* <button className="w-full bg-[#D4A048] text-[#0C1A3B] py-3 rounded-full font-bold">
             {t.bookDemo}
-          </button>
+          </button> */}
         </div>
       )}
     </nav>

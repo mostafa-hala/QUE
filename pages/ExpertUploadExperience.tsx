@@ -122,9 +122,9 @@ const ExpertUploadExperience: React.FC<{ lang: Language; t: any; toggleLanguage:
 
           {/* Pro */}
           <div className="bg-[#1E3A75]/90 border border-[#1BC5FF] rounded-2xl p-8 backdrop-blur-md shadow-2xl shadow-[#1BC5FF]/20 relative overflow-hidden">
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#1BC5FF] text-[#0C1A3B] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            {/* <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#1BC5FF] text-[#0C1A3B] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
               {t.expertUpload.mostPopular}
-            </div>
+            </div> */}
 
             <h3 className="text-2xl font-bold mb-2 mt-2">{t.expertUpload.tiers.pro.name}</h3>
             <div className="text-4xl font-bold text-[#1BC5FF] mb-4">

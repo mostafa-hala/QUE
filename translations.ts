@@ -141,7 +141,7 @@ studentPricing: {
   sub: 'Master critical skills through real-world simulations crafted by industry veterans.',
   free: {
     name: 'Free Explorer',
-    price: '$0',
+    price: '',
     desc: 'Join the platform and pay only for what you play.',
     bullets: ['Free Platform Access', 'Pay-per-Board access', 'Community Profile'],
     cta: 'Join for Free'
@@ -202,7 +202,7 @@ studentPricing: {
     },
     footer: {
       quote: '"Where Wisdom Becomes Future"',
-      rights: '© 2025 QueNeu AI Development. All rights reserved.'
+      rights: '© 2026 QueNeu AI Development. All rights reserved.'
     }
   },
   ar: {
@@ -312,7 +312,7 @@ studentPricing: {
   tiers: {
     free: {
       name: 'صانع مجاني',
-      price: '$0',
+      price: '',
       per: '/شهرياً',
       desc: 'مناسب لمشاركة أول تجربة قوية لديك.',
       cta: 'اختيار المجانية',
@@ -344,7 +344,7 @@ studentPricing: {
   sub: 'اتقن مهارات حقيقية عبر محاكاة واقعية صممها خبراء.',
   free: {
     name: 'مستكشف مجاني',
-    price: '$0',
+    price: '',
     desc: 'انضم للمنصة وادفع فقط مقابل ما تلعبه.',
     bullets: ['دخول مجاني للمنصة', 'الدفع حسب كل لعبة', 'ملف مجتمعي'],
     cta: 'انضم مجاناً'
@@ -406,7 +406,7 @@ studentPricing: {
     },
     footer: {
       quote: '"حيث تتحول الحكمة إلى مستقبل"',
-      rights: '© 2025 كيو نيو لتطوير الذكاء الاصطناعي. جميع الحقوق محفوظة.'
+      rights: '© 2026 كيو نيو لتطوير الذكاء الاصطناعي. جميع الحقوق محفوظة.'
     }
   }
 };
