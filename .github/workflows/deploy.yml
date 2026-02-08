@@ -1,4 +1,4 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy Vite to GitHub Pages (pnpm)
 
 on:
   push:
@@ -27,13 +27,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+
+      - name: Enable Corepack (pnpm)
+        run: corepack enable
+
+      # (اختياري لكن مفيد): تثبيت نسخة pnpm ثابتة
+      - name: Use pnpm 9
+        run: corepack prepare pnpm@9.12.3 --activate
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
