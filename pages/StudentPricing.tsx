@@ -1,62 +1,69 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, Crown, Gem } from 'lucide-react';
-import { Language } from '../types';
-import Navbar from '../components/Navbar';
+import React, { useRef, useState } from "react";
+import { CheckCircle2, Crown, Gem } from "lucide-react";
+import { Language } from "../types";
+import Navbar from "../components/Navbar";
+import ComingSoonModal from "../components/ComingSoonModal";
+
+type MainTier = "free" | "unlimited";
 
 const StudentPricing: React.FC<{
   lang: Language;
   t: any;
   toggleLanguage: () => void;
 }> = ({ lang, t, toggleLanguage }) => {
-  const navigate = useNavigate();
-
-  const [hasChosenFree, setHasChosenFree] = useState(false);
+  const [chosenTier, setChosenTier] = useState<MainTier | null>(null);
   const [showBoardPacks, setShowBoardPacks] = useState(false);
   const boardPacksRef = useRef<HTMLDivElement>(null);
 
+  const [soonOpen, setSoonOpen] = useState(false);
+
   const handleProfileSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/login?role=student');
+    setSoonOpen(true);
   };
 
-  const handleShowBoardPacks = () => {
-    if (hasChosenFree) return;
-    setHasChosenFree(true);
+  const handleChooseTier = (tier: MainTier) => {
+    if (chosenTier) return;
+    setChosenTier(tier);
 
     setTimeout(() => {
       setShowBoardPacks(true);
       setTimeout(() => {
-        boardPacksRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        boardPacksRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 250);
     }, 900);
   };
 
+  // ✅ states للكروت
+  const showFreeCard = chosenTier ? chosenTier === "free" : true;
+  const showUnlimitedCard = chosenTier ? chosenTier === "unlimited" : true;
+
+  // ✅ لما واحد يتختار، نخلي الـ container صف واحد عشان الكارت المختار يبقى في النص
+  const tiersGridClass = chosenTier ? "grid grid-cols-1 gap-8 max-w-3xl mx-auto w-full" : "grid md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full";
+
   return (
     <div
-      dir={lang === 'ar' ? 'rtl' : 'ltr'}
-      className={`min-h-screen bg-[#0C1A3B]/95 text-[#F4F3EC] ${lang === 'ar' ? 'font-arabic' : ''}`}
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      className={`min-h-screen bg-[#0C1A3B]/95 text-[#F4F3EC] ${lang === "ar" ? "font-arabic" : ""}`}
+      style={lang === "ar" ? { fontFamily: `'Cairo','Tajawal','Segoe UI',sans-serif` } : undefined}
     >
       <Navbar lang={lang} toggleLanguage={toggleLanguage} t={t.nav} variant="page" />
 
       <div className="pt-28 px-6 pb-20 max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <h1 className="text-4xl md:text-5xl font-black mb-4">
-            {t.studentPricing.title}
-          </h1>
-          <p className="text-[#E5D8C0] text-lg md:text-xl max-w-3xl mx-auto">
-            {t.studentPricing.sub}
-          </p>
+          <h1 className="text-4xl md:text-5xl font-black mb-4">{t.studentPricing.title}</h1>
+          <p className="text-[#E5D8C0] text-lg md:text-xl max-w-3xl mx-auto">{t.studentPricing.sub}</p>
         </div>
 
         {/* MAIN TIERS */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full">
-          {/* FREE EXPLORER */}
+        <div className={tiersGridClass}>
+          {/* FREE TRIAL CARD */}
           <div
             className={`
               bg-[#0C1A3B]/80 border border-[#16285A] rounded-2xl p-8 
-              backdrop-blur-md shadow-xl transition-all duration-500
-              ${hasChosenFree ? 'move-to-center' : ''}
+              backdrop-blur-md shadow-xl transition-all duration-[900ms] ease-in-out
+              ${showFreeCard ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"}
+              ${chosenTier === "free" ? "move-to-center" : ""}
             `}
           >
             <h3 className="text-2xl font-bold mb-2">{t.studentPricing.free.name}</h3>
@@ -72,20 +79,21 @@ const StudentPricing: React.FC<{
             </ul>
 
             <button
-              onClick={handleShowBoardPacks}
+              onClick={() => handleChooseTier("free")}
               className="w-full py-3 rounded-lg border border-[#E5D8C0] text-[#E5D8C0] font-bold hover:bg-[#E5D8C0] hover:text-[#0C1A3B] transition"
             >
               {t.studentPricing.free.cta}
             </button>
           </div>
 
-          {/* PLAYER PLUS */}
+          {/* UNLIMITED ACCESS CARD (اللي كان plus عندك) */}
           <div
             className={`
               bg-[#1E3A75]/90 border border-[#1BC5FF] rounded-2xl p-8 
               backdrop-blur-md shadow-2xl shadow-[#1BC5FF]/20 relative overflow-hidden
               transform transition-all duration-[900ms] ease-in-out
-              ${hasChosenFree ? 'opacity-0 scale-95 translate-x-4 pointer-events-none' : 'opacity-100 scale-100 translate-x-0'}
+              ${showUnlimitedCard ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"}
+              ${chosenTier === "unlimited" ? "move-to-center" : ""}
             `}
           >
             <div className="absolute -right-12 top-6 bg-[#1BC5FF] text-[#0C1A3B] px-12 py-1 rotate-45 text-sm font-bold">
@@ -108,7 +116,10 @@ const StudentPricing: React.FC<{
               ))}
             </ul>
 
-            <button className="w-full py-3 rounded-lg bg-[#1BC5FF] text-[#0C1A3B] font-bold hover:shadow-[0_0_20px_rgba(27,197,255,0.4)] transition">
+            <button
+              onClick={() => handleChooseTier("unlimited")}
+              className="w-full py-3 rounded-lg bg-[#1BC5FF] text-[#0C1A3B] font-bold hover:shadow-[0_0_20px_rgba(27,197,255,0.4)] transition"
+            >
               {t.studentPricing.plus.cta}
             </button>
           </div>
@@ -120,7 +131,7 @@ const StudentPricing: React.FC<{
           className={`
             max-w-5xl mx-auto w-full overflow-hidden
             transition-all duration-[1200ms] ease-in-out
-            ${showBoardPacks ? 'max-h-[1500px] opacity-100 mt-16' : 'max-h-0 opacity-0 mt-0'}
+            ${showBoardPacks ? "max-h-[1500px] opacity-100 mt-16" : "max-h-0 opacity-0 mt-0"}
           `}
         >
           <div className="flex items-center gap-4 mb-8 justify-center">
@@ -133,7 +144,10 @@ const StudentPricing: React.FC<{
 
           <div className="grid md:grid-cols-3 gap-6">
             {t.studentPricing.boardPacks.packs.map((p: any, i: number) => (
-              <div key={i} className="bg-[#0A0A0A]/80 border border-[#16285A] p-6 rounded-xl hover:border-[#D4A048] transition group cursor-pointer backdrop-blur-sm shadow-lg">
+              <div
+                key={i}
+                className="bg-[#0A0A0A]/80 border border-[#16285A] p-6 rounded-xl hover:border-[#D4A048] transition group cursor-pointer backdrop-blur-sm shadow-lg"
+              >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-1">
                     {Array.from({ length: p.gems }).map((_, j) => (
@@ -176,9 +190,11 @@ const StudentPricing: React.FC<{
               </form>
             </div>
           </div>
-
         </div>
       </div>
+
+      {/* Coming Soon Modal */}
+      <ComingSoonModal open={soonOpen} onClose={() => setSoonOpen(false)} lang={lang} />
     </div>
   );
 };
