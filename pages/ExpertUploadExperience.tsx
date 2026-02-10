@@ -102,10 +102,10 @@ const ExpertUploadExperience: React.FC<{
             <div className="bg-[#0C1A3B]/80 border border-[#16285A] rounded-2xl p-8 backdrop-blur-md shadow-xl">
               <div className="h-1 w-full bg-[#E5D8C0] rounded-full mb-6" />
               <h3 className="text-2xl font-bold mb-2">{t.expertUpload.tiers.free.name}</h3>
-              <div className="text-4xl font-bold text-[#E5D8C0] mb-4">
+              {/* <div className="text-4xl font-bold text-[#E5D8C0] mb-4">
                 {t.expertUpload.tiers.free.price}
                 <span className="text-lg font-normal text-[#9CA3AF]">{t.expertUpload.tiers.free.per}</span>
-              </div>
+              </div> */}
               <p className="text-[#9CA3AF] mb-7 text-sm">{t.expertUpload.tiers.free.desc}</p>
 
               <ul className="space-y-3 mb-8">

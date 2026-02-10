@@ -12,9 +12,15 @@ const StudentPricing: React.FC<{
   toggleLanguage: () => void;
 }> = ({ lang, t, toggleLanguage }) => {
   const [chosenTier, setChosenTier] = useState<MainTier | null>(null);
-  const [showBoardPacks, setShowBoardPacks] = useState(false);
-  const boardPacksRef = useRef<HTMLDivElement>(null);
 
+  // ✅ Show blocks
+  const [showBoardPacks, setShowBoardPacks] = useState(false); // only for FREE
+  const [showForm, setShowForm] = useState(false); // for FREE + PLUS
+
+  const boardPacksRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+
+  // ✅ Coming Soon
   const [soonOpen, setSoonOpen] = useState(false);
 
   const handleProfileSubmit = (e: React.FormEvent) => {
@@ -24,51 +30,92 @@ const StudentPricing: React.FC<{
 
   const handleChooseTier = (tier: MainTier) => {
     if (chosenTier) return;
+
     setChosenTier(tier);
 
+    // ✅ After animation delay
     setTimeout(() => {
+      // PLUS: show form only
+      if (tier === "unlimited") {
+        setShowForm(true);
+        setTimeout(() => {
+          formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 250);
+        return;
+      }
+
+      // FREE: show board packs + form
       setShowBoardPacks(true);
+      setShowForm(true);
+
       setTimeout(() => {
         boardPacksRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       }, 250);
     }, 900);
   };
 
-  // ✅ states للكروت
+  // ✅ cards visibility
   const showFreeCard = chosenTier ? chosenTier === "free" : true;
   const showUnlimitedCard = chosenTier ? chosenTier === "unlimited" : true;
 
-  // ✅ لما واحد يتختار، نخلي الـ container صف واحد عشان الكارت المختار يبقى في النص
-  const tiersGridClass = chosenTier ? "grid grid-cols-1 gap-8 max-w-3xl mx-auto w-full" : "grid md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full";
+  // ✅ center single selected card
+  const tiersGridClass = chosenTier
+    ? "grid grid-cols-1 gap-8 max-w-3xl mx-auto w-full"
+    : "grid md:grid-cols-2 gap-8 max-w-4xl mx-auto w-full";
 
   return (
     <div
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className={`min-h-screen bg-[#0C1A3B]/95 text-[#F4F3EC] ${lang === "ar" ? "font-arabic" : ""}`}
-      style={lang === "ar" ? { fontFamily: `'Cairo','Tajawal','Segoe UI',sans-serif` } : undefined}
+      className={`min-h-screen bg-[#0C1A3B]/95 text-[#F4F3EC] ${
+        lang === "ar" ? "font-arabic" : ""
+      }`}
+      style={
+        lang === "ar"
+          ? { fontFamily: `'Cairo','Tajawal','Segoe UI',sans-serif` }
+          : undefined
+      }
     >
-      <Navbar lang={lang} toggleLanguage={toggleLanguage} t={t.nav} variant="page" />
+      <Navbar
+        lang={lang}
+        toggleLanguage={toggleLanguage}
+        t={t.nav}
+        variant="page"
+      />
 
       <div className="pt-28 px-6 pb-20 max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <h1 className="text-4xl md:text-5xl font-black mb-4">{t.studentPricing.title}</h1>
-          <p className="text-[#E5D8C0] text-lg md:text-xl max-w-3xl mx-auto">{t.studentPricing.sub}</p>
+          <h1 className="text-4xl md:text-5xl font-black mb-4">
+            {t.studentPricing.title}
+          </h1>
+          <p className="text-[#E5D8C0] text-lg md:text-xl max-w-3xl mx-auto">
+            {t.studentPricing.sub}
+          </p>
         </div>
 
         {/* MAIN TIERS */}
         <div className={tiersGridClass}>
-          {/* FREE TRIAL CARD */}
+          {/* FREE TRIAL */}
           <div
             className={`
               bg-[#0C1A3B]/80 border border-[#16285A] rounded-2xl p-8 
               backdrop-blur-md shadow-xl transition-all duration-[900ms] ease-in-out
-              ${showFreeCard ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"}
+              ${
+                showFreeCard
+                  ? "opacity-100 scale-100 translate-y-0"
+                  : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"
+              }
               ${chosenTier === "free" ? "move-to-center" : ""}
             `}
           >
-            <h3 className="text-2xl font-bold mb-2">{t.studentPricing.free.name}</h3>
-            <div className="text-4xl font-bold text-[#E5D8C0] mb-6">{t.studentPricing.free.price}</div>
-            <p className="text-[#9CA3AF] mb-8 text-sm">{t.studentPricing.free.desc}</p>
+            <h3 className="text-2xl font-bold mb-2">
+              {t.studentPricing.free.name}
+            </h3>
+            <div className="text-4xl font-bold text-[#E5D8C0] mb-6">
+              {t.studentPricing.free.price}
+            </div>
+            <p className="text-[#9CA3AF] mb-8 text-sm">
+              {t.studentPricing.free.desc}
+            </p>
 
             <ul className="space-y-4 mb-8">
               {t.studentPricing.free.bullets.map((b: string, i: number) => (
@@ -86,13 +133,17 @@ const StudentPricing: React.FC<{
             </button>
           </div>
 
-          {/* UNLIMITED ACCESS CARD (اللي كان plus عندك) */}
+          {/* PLAYER PLUS (unlimited) */}
           <div
             className={`
               bg-[#1E3A75]/90 border border-[#1BC5FF] rounded-2xl p-8 
               backdrop-blur-md shadow-2xl shadow-[#1BC5FF]/20 relative overflow-hidden
               transform transition-all duration-[900ms] ease-in-out
-              ${showUnlimitedCard ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"}
+              ${
+                showUnlimitedCard
+                  ? "opacity-100 scale-100 translate-y-0"
+                  : "opacity-0 scale-95 -translate-y-2 pointer-events-none max-h-0 overflow-hidden p-0 border-0"
+              }
               ${chosenTier === "unlimited" ? "move-to-center" : ""}
             `}
           >
@@ -100,17 +151,27 @@ const StudentPricing: React.FC<{
               {t.studentPricing.plus.badge}
             </div>
 
-            <h3 className="text-2xl font-bold mb-2">{t.studentPricing.plus.name}</h3>
+            <h3 className="text-2xl font-bold mb-2">
+              {t.studentPricing.plus.name}
+            </h3>
             <div className="text-4xl font-bold text-[#1BC5FF] mb-6">
               {t.studentPricing.plus.price}
-              <span className="text-lg font-normal text-[#9CA3AF]">{t.studentPricing.plus.per}</span>
+              <span className="text-lg font-normal text-[#9CA3AF]">
+                {t.studentPricing.plus.per}
+              </span>
             </div>
-            <p className="text-[#9CA3AF] mb-8 text-sm">{t.studentPricing.plus.desc}</p>
+            <p className="text-[#9CA3AF] mb-8 text-sm">
+              {t.studentPricing.plus.desc}
+            </p>
 
             <ul className="space-y-4 mb-8">
               {t.studentPricing.plus.bullets.map((b: string, i: number) => (
                 <li key={i} className="flex items-center gap-3">
-                  {i === 0 ? <Crown size={18} className="text-[#1BC5FF]" /> : <CheckCircle2 size={18} className="text-[#1BC5FF]" />}
+                  {i === 0 ? (
+                    <Crown size={18} className="text-[#1BC5FF]" />
+                  ) : (
+                    <CheckCircle2 size={18} className="text-[#1BC5FF]" />
+                  )}
                   {b}
                 </li>
               ))}
@@ -125,13 +186,17 @@ const StudentPricing: React.FC<{
           </div>
         </div>
 
-        {/* BOARD PACKS */}
+        {/* ✅ BOARD PACKS (FREE only) */}
         <div
           ref={boardPacksRef}
           className={`
             max-w-5xl mx-auto w-full overflow-hidden
             transition-all duration-[1200ms] ease-in-out
-            ${showBoardPacks ? "max-h-[1500px] opacity-100 mt-16" : "max-h-0 opacity-0 mt-0"}
+            ${
+              showBoardPacks
+                ? "max-h-[1500px] opacity-100 mt-16"
+                : "max-h-0 opacity-0 mt-0"
+            }
           `}
         >
           <div className="flex items-center gap-4 mb-8 justify-center">
@@ -151,49 +216,78 @@ const StudentPricing: React.FC<{
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex gap-1">
                     {Array.from({ length: p.gems }).map((_, j) => (
-                      <Gem key={j} className="text-[#D4A048] group-hover:scale-110 transition-transform" />
+                      <Gem
+                        key={j}
+                        className="text-[#D4A048] group-hover:scale-110 transition-transform"
+                      />
                     ))}
                   </div>
-                  <span className="bg-[#16285A] text-[#E5D8C0] px-2 py-1 rounded text-xs">{p.tag}</span>
+                  <span className="bg-[#16285A] text-[#E5D8C0] px-2 py-1 rounded text-xs">
+                    {p.tag}
+                  </span>
                 </div>
-                <div className="text-3xl font-bold text-[#F4F3EC] mb-1">{p.price}</div>
+                <div className="text-3xl font-bold text-[#F4F3EC] mb-1">
+                  {p.price}
+                </div>
                 <div className="text-sm text-[#9CA3AF] mb-4">{p.desc}</div>
                 <div className="text-xs text-[#E5D8C0] opacity-60">{p.note}</div>
               </div>
             ))}
           </div>
+        </div>
 
-          {/* SIMPLE FORM */}
-          <div className="max-w-4xl mx-auto w-full mt-14">
-            <div className="rounded-3xl p-8 md:p-10 border border-[#1f2937] shadow-[0_30px_80px_rgba(0,0,0,0.65)] bg-[#0A0A0A]/40 backdrop-blur-xl">
-              <h3 className="text-2xl md:text-3xl font-bold">{t.studentPricing.form.title}</h3>
-              <p className="text-sm text-[#E5D8C0] mt-2">{t.studentPricing.form.sub}</p>
+        {/* ✅ SIMPLE FORM (FREE + PLUS) */}
+        <div
+          ref={formRef}
+          className={`
+            max-w-4xl mx-auto w-full overflow-hidden
+            transition-all duration-[1200ms] ease-in-out
+            ${showForm ? "max-h-[1200px] opacity-100 mt-14" : "max-h-0 opacity-0 mt-0"}
+          `}
+        >
+          <div className="rounded-3xl p-8 md:p-10 border border-[#1f2937] shadow-[0_30px_80px_rgba(0,0,0,0.65)] bg-[#0A0A0A]/40 backdrop-blur-xl">
+            <h3 className="text-2xl md:text-3xl font-bold">
+              {t.studentPricing.form.title}
+            </h3>
+            <p className="text-sm text-[#E5D8C0] mt-2">
+              {t.studentPricing.form.sub}
+            </p>
 
-              <form className="grid md:grid-cols-2 gap-6 mt-6" onSubmit={handleProfileSubmit}>
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-[#E5D8C0]">{t.studentPricing.form.username}</label>
-                  <input className="bg-[#0C1A3B] border border-[#16285A] rounded-xl px-4 py-2.5 text-sm" placeholder="eg. Player01" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-semibold text-[#E5D8C0]">{t.studentPricing.form.email}</label>
-                  <input type="email" className="bg-[#0C1A3B] border border-[#16285A] rounded-xl px-4 py-2.5 text-sm" placeholder="you@example.com" />
-                </div>
+            <form className="grid md:grid-cols-2 gap-6 mt-6" onSubmit={handleProfileSubmit}>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-[#E5D8C0]">
+                  {t.studentPricing.form.username}
+                </label>
+                <input
+                  className="bg-[#0C1A3B] border border-[#16285A] rounded-xl px-4 py-2.5 text-sm"
+                  placeholder="eg. Player01"
+                />
+              </div>
 
-                <div className="md:col-span-2">
-                  <button
-                    type="submit"
-                    className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#0b69f5] via-[#48b4d4] to-[#0b69f5] text-[#0C1A3B] font-bold text-sm tracking-wide"
-                  >
-                    {t.studentPricing.form.cta}
-                  </button>
-                </div>
-              </form>
-            </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-[#E5D8C0]">
+                  {t.studentPricing.form.email}
+                </label>
+                <input
+                  type="email"
+                  className="bg-[#0C1A3B] border border-[#16285A] rounded-xl px-4 py-2.5 text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#0b69f5] via-[#48b4d4] to-[#0b69f5] text-[#0C1A3B] font-bold text-sm tracking-wide"
+                >
+                  {t.studentPricing.form.cta}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
 
-      {/* Coming Soon Modal */}
       <ComingSoonModal open={soonOpen} onClose={() => setSoonOpen(false)} lang={lang} />
     </div>
   );
