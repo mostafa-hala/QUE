@@ -102,10 +102,10 @@ const ExpertUploadExperience: React.FC<{
             <div className="bg-[#0C1A3B]/80 border border-[#16285A] rounded-2xl p-8 backdrop-blur-md shadow-xl">
               <div className="h-1 w-full bg-[#E5D8C0] rounded-full mb-6" />
               <h3 className="text-2xl font-bold mb-2">{t.expertUpload.tiers.free.name}</h3>
-              {/* <div className="text-4xl font-bold text-[#E5D8C0] mb-4">
+              <div className="text-4xl font-bold text-[#E5D8C0] mb-4">
                 {t.expertUpload.tiers.free.price}
                 <span className="text-lg font-normal text-[#9CA3AF]">{t.expertUpload.tiers.free.per}</span>
-              </div> */}
+              </div>
               <p className="text-[#9CA3AF] mb-7 text-sm">{t.expertUpload.tiers.free.desc}</p>
 
               <ul className="space-y-3 mb-8">
@@ -126,9 +126,9 @@ const ExpertUploadExperience: React.FC<{
 
             {/* Pro */}
             <div className="bg-[#1E3A75]/90 border border-[#1BC5FF] rounded-2xl p-8 backdrop-blur-md shadow-2xl shadow-[#1BC5FF]/20 relative overflow-hidden">
-              {/* <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#1BC5FF] text-[#0C1A3B] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#1BC5FF] text-[#0C1A3B] px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                 {t.expertUpload.mostPopular}
-              </div> */}
+              </div>
 
               <h3 className="text-2xl font-bold mb-2 mt-2">{t.expertUpload.tiers.pro.name}</h3>
               <div className="text-4xl font-bold text-[#1BC5FF] mb-4">

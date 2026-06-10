@@ -14,7 +14,7 @@ import ExpertUploadExperience from './pages/ExpertUploadExperience';
 
 import { Section, Language } from './types';
 import { translations } from './translations';
-import cropedImg from "./assets/croped.png";
+import cropedImg from "./assets/que.png";
 import StudentPricing from './pages/StudentPricing';
 
 // Home Page as a component (clean routing)

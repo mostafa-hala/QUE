@@ -9,7 +9,7 @@ import Contact from '../components/Contact';
 import WisdomDemo from '../components/WisdomDemo';
 import { Section, Language } from '../types';
 import { translations } from '../translations';
-import cropedImg from "../assets/croped.png";
+import cropedImg from "../assets/que.png";
 
 const Landing: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.Home);

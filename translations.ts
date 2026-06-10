@@ -37,11 +37,24 @@ export const translations = {
       impactTitle: 'The 3% Challenge',
       impactDesc: 'Only 3% of organizations believe their knowledge transfer is extremely effective. QueNeu exists to bridge this gap, turning the expertise of retirees into a playable, scalable future.',
       stats: {
-        somewhat: 'Somewhat Effective',
-        minimally: 'Minimally Effective',
-        uneffective: 'Uneffective',
-        extremely: 'Extremely Effective'
-      }
+  storytelling: {
+    title: "Storytelling Engine",
+    desc: "QueNeu transforms lived experience into emotionally immersive narratives that anchor knowledge in memory."
+  },
+  subconscious: {
+    title: "Subconscious Activation",
+    desc: "We simulate pressure and risk to rewire instinctive decision-making pathways."
+  },
+  neuroscience: {
+    title: "Neuroscientific Design",
+    desc: "Built on cognitive science principles that strengthen intuition and long-term retention."
+  },
+  realCases: {
+    title: "Real Case Scenarios",
+    desc: "Every board is derived from authentic professional situations, not theoretical models."
+  }
+}
+
     },
     solutions: {
       title: 'Ecosystem of Experience',
@@ -141,7 +154,7 @@ studentPricing: {
   sub: 'Master critical skills through real-world simulations crafted by industry veterans.',
   free: {
     name: 'Free Explorer',
-    price: '',
+    price: '$0',
     desc: 'Join the platform and pay only for what you play.',
     bullets: ['Free Platform Access', 'Pay-per-Board access', 'Community Profile'],
     cta: 'Join for Free'
@@ -202,7 +215,7 @@ studentPricing: {
     },
     footer: {
       quote: '"Where Wisdom Becomes Future"',
-      rights: '© 2026 QueNeu AI Development. All rights reserved.'
+      rights: '© 2025 QueNeu AI Development. All rights reserved.'
     }
   },
   ar: {
@@ -240,11 +253,24 @@ studentPricing: {
       impactTitle: 'تحدي الـ 3٪',
       impactDesc: 'فقط 3٪ من المؤسسات تعتقد أن نقل المعرفة لديها فعال للغاية. QueNeu موجودة لسد هذه الفجوة، وتحويل خبرة المتقاعدين إلى مستقبل قابل للعب.',
       stats: {
-        somewhat: 'فعالة نوعاً ما',
-        minimally: 'فعالة بالحد الأدنى',
-        uneffective: 'غير فعالة',
-        extremely: 'فعالة للغاية'
-      }
+  storytelling: {
+    title: "محرك السرد القصصي",
+    desc: "تحوّل QueNeu الخبرات الحقيقية إلى قصص غامرة تُثبت المعرفة في الذاكرة من خلال التأثير العاطفي والتجربة الحية."
+  },
+  subconscious: {
+    title: "تنشيط العقل الباطن",
+    desc: "نحاكي الضغط والمخاطر الواقعية لإعادة تشكيل مسارات اتخاذ القرار الغريزي داخل العقل."
+  },
+  neuroscience: {
+    title: "تصميم قائم على علم الأعصاب",
+    desc: "مبني على مبادئ علم الإدراك لتعزيز الحدس وترسيخ التعلم طويل المدى بعمق عصبي."
+  },
+  realCases: {
+    title: "سيناريوهات واقعية",
+    desc: "كل لوحة مستمدة من مواقف مهنية حقيقية، وليست نماذج نظرية، لضمان أصالة التجربة وقيمتها العملية."
+  }
+}
+
     },
     solutions: {
       title: 'نظام الخبرة المتكامل',
@@ -312,8 +338,8 @@ studentPricing: {
   tiers: {
     free: {
       name: 'صانع مجاني',
-      price: '',
-      per: '',
+      price: '$0',
+      per: '/شهرياً',
       desc: 'مناسب لمشاركة أول تجربة قوية لديك.',
       cta: 'اختيار المجانية',
       bullets: ['إنشاء لوحة واحدة', 'ربح $5 لكل شراء', 'تحليلات أساسية']
@@ -344,7 +370,7 @@ studentPricing: {
   sub: 'اتقن مهارات حقيقية عبر محاكاة واقعية صممها خبراء.',
   free: {
     name: 'مستكشف مجاني',
-    price: '',
+    price: '$0',
     desc: 'انضم للمنصة وادفع فقط مقابل ما تلعبه.',
     bullets: ['دخول مجاني للمنصة', 'الدفع حسب كل لعبة', 'ملف مجتمعي'],
     cta: 'انضم مجاناً'
@@ -406,7 +432,7 @@ studentPricing: {
     },
     footer: {
       quote: '"حيث تتحول الحكمة إلى مستقبل"',
-      rights: '© 2026 كيو نيو لتطوير الذكاء الاصطناعي. جميع الحقوق محفوظة.'
+      rights: '© 2025 كيو نيو لتطوير الذكاء الاصطناعي. جميع الحقوق محفوظة.'
     }
   }
 };

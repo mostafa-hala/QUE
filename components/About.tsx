@@ -5,12 +5,15 @@ import { Language } from '../types';
 
 interface CircularStatProps {
   label: string;
+  desc: string;
   value: number;
   color: string;
   delay: number;
 }
 
-const CircularStat: React.FC<CircularStatProps> = ({ label, value, color, delay }) => {
+
+const CircularStat: React.FC<CircularStatProps> = ({ label, desc, value, color, delay }) => {
+
   const [progress, setProgress] = useState(0);
   const radius = 45;
   const circumference = 2 * Math.PI * radius;
@@ -51,13 +54,18 @@ const CircularStat: React.FC<CircularStatProps> = ({ label, value, color, delay 
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span className="text-2xl md:text-3xl font-black text-white poppins-font">
-            {progress}%
+            {/* {progress}% */}
           </span>
         </div>
       </div>
-      <span className="text-[14px]  font-bold uppercase tracking-widest text-[#F4F3EC]/60 text-center px-2 group-hover:text-white transition-colors">
-        {label}
-      </span>
+      <span className="text-[14px] font-bold uppercase tracking-widest text-[#F4F3EC]/80 text-center mt-2">
+  {label}
+</span>
+
+<p className="text-xs text-[#F4F3EC]/50 text-center mt-2 px-4 leading-relaxed">
+  {desc}
+</p>
+
     </div>
   );
 };
@@ -69,11 +77,36 @@ interface AboutProps {
 
 const About: React.FC<AboutProps> = ({ lang, t }) => {
   const stats = [
-    { label: t.stats.somewhat, value: 42, color: '#F4F3EC', delay: 200 },
-    { label: t.stats.minimally, value: 37, color: '#C69C98', delay: 400 },
-    { label: t.stats.uneffective, value: 18, color: '#D4A048', delay: 600 },
-    { label: t.stats.extremely, value: 3, color: '#1BC5FF', delay: 800 }
-  ];
+  {
+    label: t.stats.storytelling.title,
+    desc: t.stats.storytelling.desc,
+    value: 100,
+    color: '#D4A048',
+    delay: 200
+  },
+  {
+    label: t.stats.subconscious.title,
+    desc: t.stats.subconscious.desc,
+    value: 100,
+    color: '#1BC5FF',
+    delay: 400
+  },
+  {
+    label: t.stats.neuroscience.title,
+    desc: t.stats.neuroscience.desc,
+    value: 100,
+    color: '#F4F3EC',
+    delay: 600
+  },
+  {
+    label: t.stats.realCases.title,
+    desc: t.stats.realCases.desc,
+    value: 100,
+    color: '#C69C98',
+    delay: 800
+  }
+];
+
 
   return (
     <div className="py-24 px-6 relative bg-[#0C1A3B]/50 border-y border-[#1E3A75]/30 overflow-hidden">
@@ -129,12 +162,14 @@ const About: React.FC<AboutProps> = ({ lang, t }) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
               {stats.map((stat, index) => (
                 <CircularStat 
-                  key={index}
-                  label={stat.label}
-                  value={stat.value}
-                  color={stat.color}
-                  delay={stat.delay}
-                />
+  key={index}
+  label={stat.label}
+  desc={stat.desc}
+  // value={stat.value}
+  color={stat.color}
+  delay={stat.delay}
+/>
+
               ))}
             </div>
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Section, Language } from '../types';
 import { Menu, X, Globe } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import cropedImg from '../assets/croped.png';
+import cropedImg from '../assets/que.png';
 
 interface NavbarProps {
   activeSection?: Section;
@@ -107,9 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center space-x-3 rtl:space-x-reverse"
             >
               <img src={cropedImg} alt="QueNeu" className="h-12 w-auto" />
-              <span className="text-xl font-bold tracking-wider text-[#D4A048]">
-                QueNeu
-              </span>
+              
             </button>
           </div>
 
@@ -171,9 +169,9 @@ const Navbar: React.FC<NavbarProps> = ({
               {item.name}
             </button>
           ))}
-          {/* <button className="w-full bg-[#D4A048] text-[#0C1A3B] py-3 rounded-full font-bold">
+          <button className="w-full bg-[#D4A048] text-[#0C1A3B] py-3 rounded-full font-bold">
             {t.bookDemo}
-          </button> */}
+          </button>
         </div>
       )}
     </nav>
